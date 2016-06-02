@@ -55,7 +55,7 @@ namespace :delayed_job do
   namespace :monit do
     task :setup do
       on roles fetch(:delayed_job_server_roles) do
-        sudo_upload! dj_template('delayed_job.monitrc.erb'), delayed_job_monitrc_file
+        sudo_upload! dj_template('delayed_job.conf.erb'), delayed_job_monitrc_file
         sudo :service, 'monit restart'
       end
     end
