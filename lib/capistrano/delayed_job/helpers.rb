@@ -5,15 +5,7 @@ module Capistrano
     module Helpers
 
       def delayed_job_command(*args)
-        "cd #{current_path} && " <<
-            SSHKit::Command.new("HOME=/home/#{deploy_user}",
-                                "RAILS_ENV=#{fetch(:rails_env)}",
-                                :nice,
-                                '-n 15',
-                                :bundle,
-                                :exec,
-                                delayed_job_script_relative_path,
-                                args).to_command
+        "cd #{current_path} && /usr/bin/env RAILS_ENV=#{fetch(:rails_env)} bundle exec #{delayed_job_script_relative_path} #{args unless args.empty?}"
       end
 
       def dj_template(template_name)
